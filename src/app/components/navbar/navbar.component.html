@@ -1,0 +1,54 @@
+<div class="navbar shadow-sm bg-base-100 sm:container mx-auto">
+  <div class="flex-1">
+    <a class="btn btn-ghost text-xl" [routerLink]="'/product/product-list'"
+      >Products-App</a
+    >
+  </div>
+  <div class="flex-none">
+    <ul class="menu menu-horizontal px-1 gap-5">
+      <li class="">
+        <details>
+          <summary>Products</summary>
+          <ul class="bg-base-100 rounded-t-none p-2 w-full">
+            <li>
+              <a
+                [routerLink]="'/product/product-list'"
+                routerLinkActive="text-fuchsia-300"
+                [routerLinkActiveOptions]="{ exact: true }"
+                >Products List</a
+              >
+            </li>
+            <li>
+              <a
+                [routerLink]="'/product/add-product'"
+                routerLinkActive="text-fuchsia-300"
+                >Add Products</a
+              >
+            </li>
+          </ul>
+        </details>
+      </li>
+      <li>
+        <details>
+          <summary>Products Brand</summary>
+          <ul class="bg-base-100 rounded-t-none p-2">
+            <li>
+              <a
+                [routerLink]="'/product/product-brand-list'"
+                routerLinkActive="text-fuchsia-300"
+                >Product Brands List
+              </a>
+            </li>
+            <li>
+              <a
+                [routerLink]="'/product/add-product-brand'"
+                routerLinkActive="text-fuchsia-300"
+                >Add Product Brand</a
+              >
+            </li>
+          </ul>
+        </details>
+      </li>
+    </ul>
+  </div>
+</div>

@@ -1,0 +1,51 @@
+@if (infoMsg) {
+<div role="alert" class="alert alert-success mt-2 mb-5">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    class="h-6 w-6 shrink-0 stroke-current"
+    fill="none"
+    viewBox="0 0 24 24"
+  >
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+    />
+  </svg>
+  <span>{{ infoMsg }}</span>
+</div>
+}
+
+<table class="table text-center">
+  <!-- head -->
+
+  <thead>
+    <tr>
+      @for (key of dataKeys(); track $index) {
+      <th>{{ key }}</th>
+      }
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- row 1 -->
+    @for (data of dataTable(); track $index) {
+    <tr>
+      @for (key of dataKeys(); track $index) {
+      <!-- <td>{{ getValue(prodBrand, key) }}</td> -->
+      <td>{{ getValue(data, key) | titlecase }}</td>
+      }
+      <td class="flex gap-2">
+        <btn-delete [idDelete]="+getValue(data, 'id')" />
+        <button
+          class="btn btn-xs btn-success"
+          value="{{ getValue(data, 'id') }}"
+        >
+          Update
+        </button>
+      </td>
+    </tr>
+    }
+  </tbody>
+</table>

@@ -1,0 +1,12 @@
+<title-page [titlePage]="'Product Brand List'" />
+
+<div class="overflow-x-auto mt-10 bg-gray-800">
+  @if (prodBrandData.error()) {
+  <msg-alert msgType="error" [msgContent]="prodBrandData.error()" />
+  }
+
+  <table-list
+    [dataKeys]="tableKeys()"
+    [dataTable]="prodBrandData.value() ?? []"
+  />
+</div>

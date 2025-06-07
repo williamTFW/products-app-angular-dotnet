@@ -1,0 +1,11 @@
+<title-page [titlePage]="'Add Product Brand'" />
+
+<div class="overflow-x-auto mt-10 bg-gray-800 p-5">
+  <!-- {{ formField | json }} -->
+  <form-add
+    [btnAtt]="btnForm"
+    [form]="addProdBrandForm"
+    [formFields]="formField"
+    [urlRequest]="getUrlReq()"
+  />
+</div>

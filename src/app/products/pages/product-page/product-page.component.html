@@ -1,0 +1,11 @@
+<title-page [titlePage]="'Product List'" />
+
+<div class="overflow-x-auto mt-10 bg-gray-800 p-3">
+  @if (dataProducts.error()) {
+  <msg-alert msgType="error" [msgContent]="dataProducts.error()" />
+  }
+  <table-list
+    [dataKeys]="tableKeys()"
+    [dataTable]="dataProducts.value() ?? []"
+  />
+</div>
