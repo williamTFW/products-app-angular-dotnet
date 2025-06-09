@@ -18,7 +18,7 @@ export class AddProductPageComponent {
   private fb = inject(FormBuilder);
   /* private urlReq: string = `${Environment.apiBase}/Product`; */
   private urlReq: IUrlForm = {
-    add: `${Environment.apiBase}/Product`,
+    actionReq: `${Environment.apiBase}/Product`,
     list: `/product/product-list`,
   };
   public getUrlReq(): IUrlForm {

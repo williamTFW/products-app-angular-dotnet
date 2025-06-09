@@ -13,6 +13,6 @@ export interface IBtnAtt {
 }
 
 export interface IUrlForm {
-  add: string;
+  actionReq: string;
   list: string;
 }

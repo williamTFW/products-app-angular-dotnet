@@ -1,4 +1,4 @@
-@if (infoMsg) {
+@if (infoMsg()) {
 <div role="alert" class="alert alert-success mt-2 mb-5">
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -13,7 +13,7 @@
       d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
     />
   </svg>
-  <span>{{ infoMsg }}</span>
+  <span>{{ infoMsg() }}</span>
 </div>
 }
 
@@ -36,7 +36,7 @@
       <!-- <td>{{ getValue(prodBrand, key) }}</td> -->
       <td>{{ getValue(data, key) | titlecase }}</td>
       }
-      <td class="flex gap-2">
+      <td class="flex gap-2 justify-center">
         <btn-delete [idDelete]="+getValue(data, 'id')" />
         <button
           class="btn btn-xs btn-success"

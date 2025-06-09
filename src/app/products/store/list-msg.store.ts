@@ -3,7 +3,7 @@ import { Injectable, signal } from '@angular/core';
 @Injectable({
   providedIn: 'root',
 })
-export class ListMsg {
+export class ListMsgStore {
   private _message = signal<string | null>(null);
   readonly listInfoMsg = this._message.asReadonly();
 

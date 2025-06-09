@@ -1,15 +1,17 @@
-import { Product, ProductList } from '../interfaces/product.interfaces';
+import { IProduct, IProductGet } from '../interfaces/product.interfaces';
+
+export type MapperFn<T, U> = (item: T) => U;
 
 export class ProductMapper {
-  static mapResProToProd(resProd: Product): ProductList {
+  static mapProduct(product: IProduct): IProductGet {
     return {
-      id: resProd.id,
-      name: resProd.name,
-      code: resProd.code,
+      id: product.id,
+      name: product.name,
+      code: product.code,
     };
   }
 
-  static mapResProdArrayToProArray(resProduct: Product[]): ProductList[] {
-    return resProduct.map(this.mapResProToProd);
+  static mapResProdArrayToProArray(resProduct: IProduct[]): IProductGet[] {
+    return resProduct.map(this.mapProduct);
   }
 }

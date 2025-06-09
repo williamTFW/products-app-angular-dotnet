@@ -1,5 +1,4 @@
-import { AbstractControl, FormGroup, ValidationErrors } from '@angular/forms';
-import { ApiResponseProductBrand } from '../interfaces/apiResponse.interfaces';
+import { FormGroup, ValidationErrors } from '@angular/forms';
 
 export class FormUtils {
   public static getTextError(errors: ValidationErrors) {
@@ -18,7 +17,7 @@ export class FormUtils {
     return null;
   }
 
-  public static getFieldErro(
+  public static getFieldError(
     form: FormGroup,
     fieldName: string
   ): string | null {

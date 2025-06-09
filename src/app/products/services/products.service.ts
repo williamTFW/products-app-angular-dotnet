@@ -1,11 +1,12 @@
 import { inject, Injectable } from '@angular/core';
-import { ProductBrand } from '../interfaces/product-brand.interfaces';
 import { HttpClient } from '@angular/common/http';
 import { catchError, map, Observable, tap, throwError } from 'rxjs';
-import { ProductBrandMapper } from '../mappers/product-brand.mapper';
-import { Product } from '../interfaces/product.interfaces';
-import { ProductMapper } from '../mappers/product.mapper';
-import { ApiResponseProductBrand } from '../interfaces/apiResponse.interfaces';
+import { MapperFn } from '../mappers/product.mapper';
+import {
+  IApiResponseAdd,
+  IApiResponseDelete,
+  IApiResponseGet,
+} from '../interfaces/apiResponse.interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -13,28 +14,23 @@ import { ApiResponseProductBrand } from '../interfaces/apiResponse.interfaces';
 export class ProductsService {
   private http: HttpClient = inject(HttpClient);
 
-  public getProdBrandData(url: string) {
-    return this.http.get<ProductBrand[]>(url).pipe(
-      map((res) =>
-        ProductBrandMapper.mapRestProdBrandArrayToProBrandArray(res)
-      ),
-      tap((resp) => console.log(resp)),
+  public getDataFromApi<T, U>(
+    url: string,
+    mapperFn: MapperFn<T, U>
+  ): Observable<U[]> {
+    return this.http.get<IApiResponseGet<T[]>>(url).pipe(
+      map((resp) => resp.data.map(mapperFn)),
       catchError((err) => {
-        /* console.log(`Error: ${err.name}`);
-        console.log(`Error: ${err.message}`);
-        console.log(`Error: ${err.error}`);
-        console.log({ err }); */
+        console.log({ err });
         return throwError(
-          () =>
-            new Error(`Ocurrió un error en la petición: ${err.error.message}`)
+          () => new Error(`Erros al obtener los datos ${err.message}`)
         );
       })
     );
   }
 
-  public getProdData(url: string) {
-    return this.http.get<Product[]>(url).pipe(
-      map((res) => ProductMapper.mapResProdArrayToProArray(res)),
+  public addNewData<T>(url: string, data: any): Observable<IApiResponseAdd<T>> {
+    return this.http.post<IApiResponseAdd<T>>(url, data).pipe(
       tap((resp) => console.log(resp)),
       catchError((err) => {
         console.log({ err });
@@ -46,28 +42,12 @@ export class ProductsService {
     );
   }
 
-  public addNewData<T>(
-    url: string,
-    data: any
-  ): Observable<ApiResponseProductBrand<T>> {
-    return this.http.post<ApiResponseProductBrand<T>>(url, data).pipe(
-      tap((resp) => console.log(resp)),
-      catchError((err) => {
-        console.log({ err });
-        return throwError(
-          () =>
-            new Error(`Ocurrió un error en la petición: ${err.error.message}`)
-        );
-      })
-    );
-  }
-
-  public deleteData<T>(
-    url: string,
-    id: number
-  ): Observable<ApiResponseProductBrand<T>> {
-    return this.http.delete<ApiResponseProductBrand<T>>(`${url}/${id}`).pipe(
-      tap((resp) => console.log(resp)),
+  public deleteData(url: string) {
+    console.log({ url });
+    return this.http.delete<IApiResponseDelete>(url).pipe(
+      tap((resp) => {
+        console.log({ resp });
+      }),
       catchError((err) => {
         console.log({ err });
         return throwError(
@@ -87,12 +67,12 @@ export class ProductsService {
   }
 
   public isDataObject<T>(
-    resp: ApiResponseProductBrand<T>
-  ): resp is ApiResponseProductBrand<T> & { data: T } {
+    resp: IApiResponseAdd<T>
+  ): resp is IApiResponseAdd<T> & { data: T } {
     return typeof resp.data === 'object' && resp.data !== null;
   }
 
-  public getDataIfObject<T>(resp: ApiResponseProductBrand<T>): T | null {
+  public getDataIfObject<T>(resp: IApiResponseAdd<T>): T | null {
     return this.isDataObject(resp) ? resp.data : null;
   }
 
@@ -102,3 +82,38 @@ export class ProductsService {
   }
  */
 }
+
+/* public getProdBrandData(url: string) {
+    return this.http.get<IProductBrand[]>(url).pipe(
+      map((res) =>
+        ProductBrandMapper.mapRestProdBrandArrayToProBrandArray(res)
+      ),
+      tap((resp) => console.log(resp)),
+      catchError((err) => {
+        console.log(`Error: ${err.name}`);
+        console.log(`Error: ${err.message}`);
+        console.log(`Error: ${err.error}`);
+        console.log({ err });
+        return throwError(
+          () =>
+            new Error(`Ocurrió un error en la petición: ${err.error.message}`)
+        );
+      })
+    );
+  } */
+
+/* public getProdData(url: string) {
+      return this.http.get<ApiResponseProduct>(url).pipe(
+        map((res) =>
+          ProductMapper.mapResProdArrayToProArray(res.data as Product[])
+        ),
+        tap((resp) => console.log({ resp })),
+        catchError((err) => {
+          console.log({ err });
+          return throwError(
+            () =>
+              new Error(`Ocurrió un error en la petición: ${err.error.message}`)
+          );
+        })
+      );
+    } */

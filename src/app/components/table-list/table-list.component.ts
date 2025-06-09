@@ -1,20 +1,20 @@
 import { Component, inject, input, signal } from '@angular/core';
-import { ProductBrandList } from '../../products/interfaces/product-brand.interfaces';
-import { Observable } from 'rxjs';
-import { JsonPipe, TitleCasePipe } from '@angular/common';
-import { ListMsg } from 'src/app/products/store/list-msg.store';
+import { TitleCasePipe } from '@angular/common';
+import { ListMsgStore } from 'src/app/products/store/list-msg.store';
 import { BtnDeleteComponent } from '../btn-delete/btn-delete.component';
+import { DataForCrudStore } from 'src/app/products/store/dataForCrud.store';
 
 @Component({
   selector: 'table-list',
-  imports: [TitleCasePipe, JsonPipe, BtnDeleteComponent],
+  imports: [TitleCasePipe, BtnDeleteComponent],
   templateUrl: './table-list.component.html',
 })
 export class TableListComponent {
-  private tableListMsg = inject(ListMsg);
+  private tableListMsg = inject(ListMsgStore);
+  public dataCrudSto = inject(DataForCrudStore);
   public dataKeys = input.required<string[]>();
   public dataTable = input.required<unknown[]>();
-  public infoMsg = this.tableListMsg.listInfoMsg();
+  public infoMsg = signal(this.tableListMsg.listInfoMsg());
 
   public getValue(obj: unknown, key: string): string {
     if (obj && typeof obj === 'object' && key in obj) {

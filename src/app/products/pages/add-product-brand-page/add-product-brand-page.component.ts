@@ -17,7 +17,7 @@ import { Environment } from '@environments/environment.development';
 export class AddProductBrandPageComponent {
   private fb = inject(FormBuilder);
   private urlReq: IUrlForm = {
-    add: `${Environment.apiBase}/ProductBrand`,
+    actionReq: `${Environment.apiBase}/ProductBrand`,
     list: `/product/product-brand-list`,
   };
   public getUrlReq(): IUrlForm {

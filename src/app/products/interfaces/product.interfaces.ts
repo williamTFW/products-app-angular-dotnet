@@ -1,4 +1,4 @@
-export interface Product {
+export interface IProduct {
   id: number;
   name: string;
   code: number;
@@ -6,13 +6,13 @@ export interface Product {
   idProdbrandNavigation: null;
 }
 
-export interface ProductList {
+export interface IProductGet {
   id: number;
   name: string;
   code: number;
 }
 
-export interface ProductAdd {
+export interface IProductAdd {
   name: string;
   code: number;
   idProdbrand: number;

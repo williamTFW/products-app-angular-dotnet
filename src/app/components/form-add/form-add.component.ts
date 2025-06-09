@@ -9,7 +9,7 @@ import {
 import { FormUtils } from '../../products/utilities/form.utils';
 import { ProductsService } from 'src/app/products/services/products.service';
 import { Router } from '@angular/router';
-import { ListMsg } from 'src/app/products/store/list-msg.store';
+import { ListMsgStore } from 'src/app/products/store/list-msg.store';
 
 @Component({
   selector: 'form-add',
@@ -19,7 +19,7 @@ import { ListMsg } from 'src/app/products/store/list-msg.store';
 export class FormAddComponent {
   private router = inject(Router);
   private prodServ = inject(ProductsService);
-  private tableListMsg = inject(ListMsg);
+  private tableListMsg = inject(ListMsgStore);
   public formUtils = FormUtils;
   form = input.required<FormGroup>();
   btnAtt = input.required<IBtnAtt>();
@@ -42,7 +42,7 @@ export class FormAddComponent {
 
     this.prodServ
       .addNewData<typeof fieldsForm.value>(
-        this.urlRequest().add,
+        this.urlRequest().actionReq,
         fieldsForm.value
       )
       .subscribe({
@@ -64,6 +64,7 @@ export class FormAddComponent {
                 `El nuevo ${this.btnAtt().entity} fue agregado correctamente !!`
               );
               // Redirigir a la ruta de lista
+              console.log(this.urlRequest().list);
               this.router.navigate([this.urlRequest().list]);
             }
           }

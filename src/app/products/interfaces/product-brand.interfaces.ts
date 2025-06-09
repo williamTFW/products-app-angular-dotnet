@@ -1,14 +1,14 @@
-export interface ProductBrand {
+export interface IProductBrand {
   id: number;
   name: string;
   products: any[];
 }
 
-export interface ProductBrandList {
+export interface IProductBrandGet {
   id: number;
   name: string;
 }
 
-export interface ProductBrandAdd {
+export interface IProductBrandAdd {
   name: string;
 }
