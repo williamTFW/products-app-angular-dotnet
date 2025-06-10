@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { TitlePageComponent } from '../../../components/title-page/title-page.component';
-import { FormAddComponent } from '../../../components/form-add/form-add.component';
+import { FormComponent } from '../../../components/form-product/form.component';
 import { FormBuilder, Validators } from '@angular/forms';
 import {
   IBtnAtt,
@@ -11,12 +11,11 @@ import { Environment } from '@environments/environment.development';
 
 @Component({
   selector: 'add-product-page',
-  imports: [TitlePageComponent, FormAddComponent],
+  imports: [TitlePageComponent, FormComponent],
   templateUrl: './add-product-page.component.html',
 })
 export class AddProductPageComponent {
   private fb = inject(FormBuilder);
-  /* private urlReq: string = `${Environment.apiBase}/Product`; */
   private urlReq: IUrlForm = {
     actionReq: `${Environment.apiBase}/Product`,
     list: `/product/product-list`,

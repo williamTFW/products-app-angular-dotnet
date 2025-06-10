@@ -12,11 +12,11 @@ import { Router } from '@angular/router';
 import { ListMsgStore } from 'src/app/products/store/list-msg.store';
 
 @Component({
-  selector: 'form-add',
+  selector: 'product-form',
   imports: [ReactiveFormsModule, TitleCasePipe, JsonPipe],
-  templateUrl: './form-add.component.html',
+  templateUrl: './form.component.html',
 })
-export class FormAddComponent {
+export class FormComponent {
   private router = inject(Router);
   private prodServ = inject(ProductsService);
   private tableListMsg = inject(ListMsgStore);
@@ -71,9 +71,6 @@ export class FormAddComponent {
         },
         error: (err) => {
           this.error.set(null);
-          console.error(`${typeof err}\n${err}`);
-          console.log(err.message);
-          console.log(typeof err.message);
           this.error.set(err.message);
         },
       });

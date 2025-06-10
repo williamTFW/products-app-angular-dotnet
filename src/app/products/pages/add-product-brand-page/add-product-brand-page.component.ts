@@ -6,12 +6,12 @@ import {
   IFormField,
   IUrlForm,
 } from '../../interfaces/form.interfaces';
-import { FormAddComponent } from '../../../components/form-add/form-add.component';
 import { Environment } from '@environments/environment.development';
+import { FormComponent } from 'src/app/components/form-product/form.component';
 
 @Component({
   selector: 'add-product-brand-page',
-  imports: [TitlePageComponent, ReactiveFormsModule, FormAddComponent],
+  imports: [TitlePageComponent, ReactiveFormsModule, FormComponent],
   templateUrl: './add-product-brand-page.component.html',
 })
 export class AddProductBrandPageComponent {

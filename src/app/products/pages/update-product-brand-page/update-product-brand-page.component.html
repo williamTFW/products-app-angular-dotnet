@@ -1,0 +1,14 @@
+<title-page [titlePage]="'Edit Product Brand'" />
+
+<div class="overflow-x-auto mt-10 bg-gray-800 p-5">
+  @if (isIdReady()) {
+  <product-form
+    [btnAtt]="btnForm"
+    [form]="updateProdBrandForm"
+    [formFields]="formFields"
+    [urlRequest]="urlReq()"
+  />
+  } @else {
+  <p>Cargando !!!!</p>
+  }
+</div>

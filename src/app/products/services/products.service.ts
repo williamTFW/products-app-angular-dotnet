@@ -22,9 +22,7 @@ export class ProductsService {
       map((resp) => resp.data.map(mapperFn)),
       catchError((err) => {
         console.log({ err });
-        return throwError(
-          () => new Error(`Erros al obtener los datos ${err.message}`)
-        );
+        return throwError(() => new Error(`${err.name}: ${err.error.message}`));
       })
     );
   }

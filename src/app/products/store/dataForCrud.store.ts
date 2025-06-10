@@ -1,41 +1,50 @@
 import { Injectable, signal } from '@angular/core';
-import { IFormField } from '../interfaces/form.interfaces';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DataForCrudStore {
-  private _urlToDelete = signal<string | null>(null);
+  private _urlToReq = signal<string | null>(null);
   private _urlToRedirect = signal<string | null>(null);
-  public readonly urlToDel = this._urlToDelete.asReadonly();
+  private _idReq = signal<number | null>(null);
+  public readonly urlToReq = this._urlToReq.asReadonly();
   public readonly urlToRedirect = this._urlToRedirect.asReadonly();
+  public readonly idReq = this._idReq.asReadonly();
 
-  setUrlDelete(url: string | null) {
+  /*   setUrlDelete(url: string | null) {
     this._urlToDelete.set(url);
-  }
+  } */
 
+  setUrlReq(url: string | null) {
+    this._urlToReq.set(url);
+  }
   setUrlRedirect(url: string | null) {
     this._urlToRedirect.set(url);
   }
-
-  getUrlDelete() {
-    return this._urlToDelete();
+  setId(url: number | null) {
+    this._idReq.set(url);
   }
-
+  getUrlReq() {
+    return this._urlToReq();
+  }
   getUrlRedirect() {
     return this._urlToRedirect();
   }
-
-  clearUrlDelete() {
-    this._urlToDelete.set(null);
+  getIdReq() {
+    return this._idReq();
   }
-
+  clearUrlReq() {
+    this._urlToReq.set(null);
+  }
   clearUrlRedirect() {
     this._urlToRedirect.set(null);
   }
-
+  clearIdReq() {
+    this._idReq.set(null);
+  }
   clearAllUrl() {
-    this._urlToDelete.set(null);
+    this._urlToReq.set(null);
     this._urlToRedirect.set(null);
+    this._idReq.set(null);
   }
 }

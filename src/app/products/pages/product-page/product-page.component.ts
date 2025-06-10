@@ -18,24 +18,24 @@ import { ProductMapper } from '../../mappers/product.mapper';
 export class ProductPageComponent {
   public prodServi = inject(ProductsService);
   public tableKeys = signal<(keyof IProductGet)[]>([]);
-  private urlDel = inject(DataForCrudStore);
+  private urlForActions = inject(DataForCrudStore);
   private mapProduct = ProductMapper.mapProduct;
-  private urlProdDel: string = `${Environment.apiBase}/Product`;
-  private urlProdLis: string = `/product/product-list`;
+  private urlForReq: string = `${Environment.apiBase}/Product`;
+  private urlTemplateRedirect: string = `/product/product-list`;
 
   productsData = rxResource({
     loader: ({}) => {
       const data = this.prodServi
-        .getDataFromApi<IProduct, IProductGet>(this.urlProdDel, this.mapProduct)
+        .getDataFromApi<IProduct, IProductGet>(this.urlForReq, this.mapProduct)
         .pipe(
           tap((resp) => {
             console.log({ resp });
             if (resp.length > 0) {
               const keys = this.prodServi.getObjectKeys(resp[0]);
               this.tableKeys.set(keys);
-              this.urlDel.clearAllUrl();
-              this.urlDel.setUrlDelete(this.urlProdDel);
-              this.urlDel.setUrlRedirect(this.urlProdLis);
+              this.urlForActions.clearAllUrl();
+              this.urlForActions.setUrlReq(this.urlForReq);
+              this.urlForActions.setUrlRedirect(this.urlTemplateRedirect);
             }
           })
         );

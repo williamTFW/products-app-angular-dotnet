@@ -13,8 +13,6 @@ import { Environment } from '@environments/environment.development';
 import { DataForCrudStore } from '../../store/dataForCrud.store';
 import { ProductBrandMapper } from '../../mappers/product-brand.mapper';
 
-const urlProdBrand: string = `${Environment.apiBase}/ProductBrand`;
-
 @Component({
   selector: 'product-brand-page',
   imports: [TitlePageComponent, MsgAlertComponent, TableListComponent],
@@ -22,15 +20,17 @@ const urlProdBrand: string = `${Environment.apiBase}/ProductBrand`;
 })
 export class ProductBrandPageComponent {
   private prodServi = inject(ProductsService);
-  private urlDel = inject(DataForCrudStore);
+  private urlForActions = inject(DataForCrudStore);
   private mapPro = ProductBrandMapper.mapProductBrand;
   public tableKeys = signal<(keyof IProductBrandGet)[]>([]);
+  private urlForReq: string = `${Environment.apiBase}/ProductBrand`;
+  private urlTemplateRedirect: string = `/product/product-brand-list`;
 
   prodBrandData = rxResource({
     loader: ({}) => {
       const data = this.prodServi
         .getDataFromApi<IProductBrand, IProductBrandGet>(
-          urlProdBrand,
+          this.urlForReq,
           this.mapPro
         )
         .pipe(
@@ -39,8 +39,9 @@ export class ProductBrandPageComponent {
             if (resp.length > 0) {
               const keys = this.prodServi.getObjectKeys(resp[0]);
               this.tableKeys.set(keys);
-              this.urlDel.clearUrlDelete();
-              this.urlDel.setUrlDelete(urlProdBrand);
+              this.urlForActions.clearAllUrl();
+              this.urlForActions.setUrlReq(this.urlForReq);
+              this.urlForActions.setUrlRedirect(this.urlTemplateRedirect);
             }
           })
         );

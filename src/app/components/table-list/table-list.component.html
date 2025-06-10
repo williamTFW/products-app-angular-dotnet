@@ -1,4 +1,4 @@
-@if (infoMsg()) {
+@if (infoMsg() != null) {
 <div role="alert" class="alert alert-success mt-2 mb-5">
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -15,11 +15,9 @@
   </svg>
   <span>{{ infoMsg() }}</span>
 </div>
-}
-
+} @if (dataKeys().length > 0) {
 <table class="table text-center">
   <!-- head -->
-
   <thead>
     <tr>
       @for (key of dataKeys(); track $index) {
@@ -38,14 +36,10 @@
       }
       <td class="flex gap-2 justify-center">
         <btn-delete [idDelete]="+getValue(data, 'id')" />
-        <button
-          class="btn btn-xs btn-success"
-          value="{{ getValue(data, 'id') }}"
-        >
-          Update
-        </button>
+        <btn-update [idUpdate]="+getValue(data, 'id')" />
       </td>
     </tr>
     }
   </tbody>
 </table>
+}
